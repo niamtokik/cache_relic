@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:math';
 import 'dart:convert';
 import 'cache_store.dart';
+import 'base64url.dart';
 
 /// CacheSession factory
 ///
@@ -74,16 +75,6 @@ String generateSessionId(int length) {
 /// by '-' and '/' replaced by '_'). This is
 /// dirty as hell, but it should work.
 String base64url(List<int> list) {
-  String b64 = base64
-    .encode(list)
-    .replaceAllMapped(
-      RegExp(r'\+'),
-      (Match m) => '-'
-    )
-    .replaceAllMapped(
-      RegExp(r'\/'),
-      (Match m) => '_'
-    );
-  print(b64);
-  return b64;
+  String b64 = base64.encode(list);
+  return toBase64Url(b64);
 }
