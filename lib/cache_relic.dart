@@ -1,59 +1,10 @@
 import 'dart:math';
 import 'package:relic/relic.dart';
-
-class CacheStore {
-  static final Map<String, String> _store= <String, String>{};
-
-  CacheStore();
-
-  bool exists(String key) => _store.containsKey(key);
-
-  int length() => _store.length;
-
-  String put(String key, String value) {
-    _store[key] = value;
-    return key;
-  }
-
-  String? get(String key) => _store[key];
-  
-  String? delete(String key) => _store[key];
-
-}
-
-class CacheSession {
-  final String sessionName;
-  final CacheStore cache = CacheStore();  
-  static final Map<String, CacheSession> _sessions = <String, CacheSession>{};
- 
-  factory CacheSession(String id) {
-    return _sessions.putIfAbsent(id, () {
-      return CacheSession._init(id);
-    });
-  }
-
-  CacheSession._init(this.sessionName);
-
-  static bool exists(String id) {
-    return _sessions.containsKey(id);
-  }
-
-  static String? delete(String sessionName) {
-    if (_sessions.remove(sessionName) != null) {
-      return sessionName;
-    }
-    return null;
-  }
-
-  String toString() => sessionName;
-}
-
-String generateSessionId() {
-  return Random.secure().nextInt(1<<31).toString();
-}
+import 'cache_store.dart';
+import 'cache_session.dart';
 
 Response newSessionHandler(final Request req) {
-  var sessionId = generateSessionId();
+  final String sessionId = generateSessionId(16);
   var s = CacheSession(sessionId);
   return Response.ok(
     body: Body.fromString(sessionId),
