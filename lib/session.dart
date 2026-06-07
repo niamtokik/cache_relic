@@ -1,7 +1,7 @@
 import 'dart:core';
 import 'dart:math';
 import 'dart:convert';
-import 'cache_store.dart';
+import 'store.dart';
 import 'base64url.dart';
 
 /// CacheSession factory
