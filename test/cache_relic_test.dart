@@ -2,6 +2,10 @@ import 'package:test/test.dart';
 import 'package:cache_relic/store.dart';
 
 void main() {
+  store_test();
+}
+
+store_test() {
   group('store', () {
     test('create a new store', () {
       expect(CacheStore(), isA<CacheStore>());  
