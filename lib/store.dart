@@ -14,6 +14,5 @@ class CacheStore {
 
   String? get(String key) => _store[key];
   
-  String? delete(String key) => _store[key];
-
+  String? delete(String key) => _store.remove(key);
 }
